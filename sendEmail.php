@@ -30,8 +30,8 @@
         $mail->SMTPAuth = true;   
         
         //Provide username and password     
-        $mail->Username = "billionsdream0@gmail.com";                 
-        $mail->Password = "$900BillionDream"; 
+        $mail->Username = "gmail-Email-address";                 
+        $mail->Password = "gmail-password-here"; 
 
         $mail->SMTPSecure = "tls";
         
