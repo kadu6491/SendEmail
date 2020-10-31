@@ -12,7 +12,7 @@
     function sendEmail($email, $name, $firstname)
     {
 
-        $url = "<a href='http://localhost:3000/reset.php'> Password Reset Link </a>";
+        $url="<a href='http://localhost:8000/SendEmail/reset.php?key=".$email."'>Click To Reset password</a>";
         
         //PHPMailer Object
         $mail = new PHPMailer(true); //Argument true in constructor enables exceptions
@@ -30,8 +30,8 @@
         $mail->SMTPAuth = true;   
         
         //Provide username and password     
-        $mail->Username = "gmail-Email-address";                 
-        $mail->Password = "gmail-password-here"; 
+        $mail->Username = "rosbyasiamah0@gmail.com";                 
+        $mail->Password = "Makafui-21"; 
 
         $mail->SMTPSecure = "tls";
         
@@ -39,8 +39,8 @@
         $mail->Port = 587;
 
         //From email address and name
-        $mail->From = "billionsdream0@gmail.com";
-        $mail->FromName = "OnlySweets";
+        $mail->From = "rosbyasiamah0@gmail.com";
+        $mail->FromName = "ROSearch";
 
         //To address and name
         $mail->addAddress($email, $name);
@@ -66,7 +66,7 @@
     {
         $resetEmail = $_POST['email'];
 
-        $sql = "SELECT * FROM users WHERE user_email='$resetEmail'";
+        $sql = "SELECT * FROM user WHERE email='$resetEmail'";
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -74,15 +74,9 @@
                 // echo $row['First_Name'] . "<br>";
                 // echo $row['Last_Name'];
 
-                $fullname = $row['First_Name'] . " " . $row['Last_Name'];
-                $mail = "We have sent you this email in response to your 
-                         request to reset your password on ROSearch.<br> 
-                         To reset your password for ROSearch, please follow the link 
-                         below:<br>" . $url . "<br> We recommend that you 
-                         keep your password secure and not share it with anyone. 
-                         <br> <br> ROSearch Customer Service";
+                $fullname = $row['fullname'];
 
-                sendEmail($resetEmail, $fullname, $row['First_Name']);
+                sendEmail($resetEmail, $fullname, $row['fullname']);
                 $msg = "
                         <div class='alert alert-success' role='alert'>
                             <strong>Password reset sent</strong>

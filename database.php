@@ -1,8 +1,8 @@
 <?php 
-    $servername = "127.0.0.1";
-    $username = "root";
-    $password = "password";
-    $dbname = "OnlySweets";
+    $servername = "localhost";
+    $username = "admin";
+    $password = "monarchs";
+    $dbname = "ROSearch";
     
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);

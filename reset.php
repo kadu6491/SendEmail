@@ -1,3 +1,44 @@
+
+<?php 
+    include "database.php";
+    $key = $_GET['key'];
+
+    $sql = "SELECT * FROM user WHERE email='$key'";
+    $result = mysqli_query($conn, $sql);
+
+    if(mysqli_num_rows($result) > 0)
+    {
+        if(isset($_POST["reset"]))
+        {
+            $email = $_GET['key'];
+            $pass = $_POST['newpass'];
+            $retry = $_POST["retry"];
+
+            if($pass == $retry)
+            {
+                $new_pass = md5($pass);
+                $select=mysqli_query($conn, "update user set password='$new_pass' where email='$email'");
+                header("location: ../login.php");
+            }
+
+            else {
+                echo "
+                        <div class='alert alert-danger' role='alert'>
+                            <strong>Password do not match</strong>
+                        </div>
+                    ";
+            }
+            
+        }
+    }
+
+    else {
+        header("location: ../index.php");
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,23 +82,18 @@
 
     <div class="container">
         <h3>New Password | ROSearch </h3>
-        <form class="text-left" style="color: #757575; margin-top: 20px;" action="#!">
+        <form class="text-left" style="color: #757575; margin-top: 20px;" action="#!" method="post">
             <div class="row">
                 <div class="col-sm-4">
-                    
-                    <label>Current Password</label>
-                    <div class="form-group pass_show"> 
-                        <input type="password" class="form-control" > 
-                    </div> 
                     <label>New Password</label>
                     <div class="form-group pass_show"> 
-                        <input type="password" class="form-control" > 
+                        <input type="password" class="form-control" name="newpass" > 
                     </div> 
                     <label>Confirm Password</label>
                     <div class="form-group pass_show"> 
-                        <input type="password" class="form-control" > 
+                        <input type="password" class="form-control" name="retry" > 
                     </div> 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="reset">Submit</button>
                 </div>  
             </div>
         </form>
